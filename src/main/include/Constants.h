@@ -2,100 +2,32 @@
 //std
 #include <string>
 
-//FRC
-#include <frc/AddressableLED.h>
 
 //local
-#include "DertLib/include/TalonFXMotor.h"
+#include "DertLib/include/SparkMaxMotor.h"
 #include "Robot_Control_ert_rtw/Robot_Control.h"
-#include "Odometry_ert_rtw/Odometry.h"
-#include "LimelightHelpers.h"
 
 using namespace dlib;
 
 namespace Constants
 {
-    namespace SwerveInfo
+    namespace BallShooter
     {
-    //Steer Encoder Ports
-        static constexpr int k_FrontLeft_Steer_Encoder_ID = 1;
-        static constexpr int k_FrontRight_Steer_Encoder_ID = 2;
-        static constexpr int k_BackLeft_Steer_Encoder_ID = 3;
-        static constexpr int k_BackRight_Steer_Encoder_ID = 4;
-    
-    //Wheel Offset Keys
-        static constexpr std::string_view k_FrontLeft_Wheel_Offset_Key = "FrontLeftWheelOffset";
-        static constexpr std::string_view k_FrontRight_Wheel_Offset_Key = "FrontRightWheelOffset";
-        static constexpr std::string_view k_BackLeft_Wheel_Offset_Key = "BackLeftWheelOffset";
-        static constexpr std::string_view k_BackRight_Wheel_Offset_Key = "BackRightWheelOffset";
-    };
-
-    namespace SwerveMotorsCreateInfo
-    {
-        //CAN Networking
-            static constexpr int kStatus1_ms = 60; //ms
-            static constexpr int kStatus2_ms = 60; //ms
-        namespace Drive
-        {
-            static TalonFXMotorCreateInfo defaultDriveCreateInfo = TalonFXMotorCreateInfo::getDefaultCreateInfo()
-                .SetCanbusName("uno")
-                .SetIsReversed(true)
-                .SetSupplyCurrentLimit(80)
-                .SetOpenLoopRampPeriod(0)
-                .SetEnableFOC(true)
-                .SetMotorType(TalonFXMotorType::KrakenX60);
-
-            static const TalonFXMotorCreateInfo frontLeft = defaultDriveCreateInfo
+            static SparkMaxMotorCreateInfo defaultDriveCreateInfo = SparkMaxMotorCreateInfo::getDefaultCreateInfo()
                 .SetCanID(1)
-                .SetDutyCycleCallback(&Robot_Control_Y.FrontLeft_Drive_DutyCycle)
-                .SetVelocityCallback(&Robot_Control_U.FrontLeft_Drive_Motor_Speed)
-                .SetPositionCallback(&Odometry_U.FrontLeft_Drive_Motor_Rev);
+                .SetIsReversed(true)
+                .SetSmartCurrentLimit(80)
+                .SetSecondaryCurrentLimit(80);
+
+
+            static const SparkMaxMotorCreateInfo ballMotor = defaultDriveCreateInfo
+                .SetCanID(1)
+                .SetDutyCycleCallback(&Robot_Control_Y.ballMotor_Duty_Cycle)
+                .SetVelocityCallback(&Robot_Control_U.ballMotor_Speed);
             
-            static const TalonFXMotorCreateInfo frontRight = defaultDriveCreateInfo
-                .SetCanID(2)
-                .SetDutyCycleCallback(&Robot_Control_Y.FrontRight_Drive_DutyCycle)
-                .SetVelocityCallback(&Robot_Control_U.FrontRight_Drive_Motor_Speed)
-                .SetPositionCallback(&Odometry_U.FrontRight_Drive_Motor_Rev);
-                
-            static const TalonFXMotorCreateInfo backLeft = defaultDriveCreateInfo
-                .SetCanID(3)
-                .SetDutyCycleCallback(&Robot_Control_Y.BackLeft_Drive_DutyCycle)
-                .SetVelocityCallback(&Robot_Control_U.BackLeft_Drive_Motor_Speed)
-                .SetPositionCallback(&Odometry_U.BackLeft_Drive_Motor_Rev);
-            
-            static const TalonFXMotorCreateInfo backRight = defaultDriveCreateInfo
-                .SetCanID(4)
-                .SetDutyCycleCallback(&Robot_Control_Y.BackRight_Drive_DutyCycle)
-                .SetVelocityCallback(&Robot_Control_U.BackRight_Drive_Motor_Speed)
-                .SetPositionCallback(&Odometry_U.BackRight_Drive_Motor_Rev);  
-        };
         
-        namespace Steer
-        {
-            static TalonFXMotorCreateInfo defaultSteerCreateInfo = TalonFXMotorCreateInfo::getDefaultCreateInfo()
-                .SetCanbusName("uno")
-                .SetIsReversed(false)
-                .SetSupplyCurrentLimit(60)
-                .SetOpenLoopRampPeriod(0)
-                .SetEnableFOC(true)
-                .SetMotorType(TalonFXMotorType::KrakenX44);
-
-            static const TalonFXMotorCreateInfo frontLeft = defaultSteerCreateInfo
-                .SetCanID(5)
-                .SetDutyCycleCallback(&Robot_Control_Y.FrontLeft_Steer_DutyCycle);
-            
-            static const TalonFXMotorCreateInfo frontRight = defaultSteerCreateInfo
-                .SetCanID(6)
-                .SetDutyCycleCallback(&Robot_Control_Y.FrontRight_Steer_DutyCycle); 
-            
-            static const TalonFXMotorCreateInfo backLeft = defaultSteerCreateInfo
-                .SetCanID(7)
-                .SetDutyCycleCallback(&Robot_Control_Y.BackLeft_Steer_DutyCycle);
-
-            static const TalonFXMotorCreateInfo backRight = defaultSteerCreateInfo
-                .SetCanID(8)
-                .SetDutyCycleCallback(&Robot_Control_Y.BackRight_Steer_DutyCycle);
-        };
+        
+    
     };
     
     namespace HID
@@ -105,36 +37,5 @@ namespace Constants
         static constexpr int k_Right_Joystick_Port = 2;
     };
 
-    namespace IMU
-    {
-        static constexpr int k_Pigeon2_Device_ID = 5;
-        static constexpr std::string_view k_Pigeon2_Device_Name = "uno";
-    };
-
-
-
-    namespace Limelight
-    {
-        static const LimeLightCameraCreateInfo CameraOneCreateInfo
-        {
-            "limelight-one", // Limelight Name
-            10.0/39.37008,   // Forward offset (meters)
-            0.0/39.37008,    // Side offset (meters)
-            10.0/39.37008,   // Height offset (meters)
-            0.0,             // Roll (degrees)
-            0.0,             // Pitch (degrees)
-            0.0              // Yaw (degrees)
-        };
-        static const LimeLightCameraCreateInfo CameraTwoCreateInfo
-        {
-            "limelight-two", // Limelight Name
-            0.5,             // Forward offset (meters)
-            0.0,             // Side offset (meters)
-            0.5,             // Height offset (meters)
-            0.0,             // Roll (degrees)
-            30.0,            // Pitch (degrees)
-            0.0              // Yaw (degrees)
-        };
-    };
 
 };

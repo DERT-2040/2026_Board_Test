@@ -2,7 +2,7 @@
 ## Makefile generated for component 'Robot_Control'. 
 ## 
 ## Makefile     : Robot_Control.mk
-## Generated on : Sat Jan 03 07:03:49 2026
+## Generated on : Thu Jan 15 20:19:51 2026
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/Robot_Control.exe
 ## Product type : executable
 ## 
@@ -23,7 +23,7 @@ MAKEFILE                  = Robot_Control.mk
 MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2023b
 MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2023b/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
-START_DIR                 = C:/GitHub/2025_Robot/src/main
+START_DIR                 = C:/GitHub/2026_Board_Test/src/main
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
@@ -183,7 +183,7 @@ DEFINES = $(DEFINES_BUILD_ARGS) $(DEFINES_CUSTOM) $(DEFINES_OPTS) $(DEFINES_STAN
 ## SOURCE FILES
 ###########################################################################
 
-SRCS = $(START_DIR)/Robot_Control_ert_rtw/Robot_Control.c $(START_DIR)/Robot_Control_ert_rtw/Robot_Control_data.c
+SRCS = $(START_DIR)/Robot_Control_ert_rtw/Robot_Control.c
 
 MAIN_SRC = $(MATLAB_ROOT)/rtw/c/src/common/rt_main.c
 
@@ -193,7 +193,7 @@ ALL_SRCS = $(SRCS) $(MAIN_SRC)
 ## OBJECTS
 ###########################################################################
 
-OBJS = Robot_Control.obj Robot_Control_data.obj
+OBJS = Robot_Control.obj
 
 MAIN_OBJ = rt_main.obj
 
@@ -510,10 +510,6 @@ $(PRODUCT) : $(OBJS) $(PREBUILT_OBJS) $(LIBS) $(MAIN_OBJ)
 
 
 Robot_Control.obj : $(START_DIR)/Robot_Control_ert_rtw/Robot_Control.c
-	$(CC) $(CFLAGS) -o "$@" "$<"
-
-
-Robot_Control_data.obj : $(START_DIR)/Robot_Control_ert_rtw/Robot_Control_data.c
 	$(CC) $(CFLAGS) -o "$@" "$<"
 
 

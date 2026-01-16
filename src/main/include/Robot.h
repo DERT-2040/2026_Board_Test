@@ -2,16 +2,9 @@
 
 //local
 #include "Robot_Control_ert_rtw\Robot_Control.h"
-#include "Odometry_ert_rtw\Odometry.h"
 #include "DertLib/include/Component.h"
-#include "DertLib/include/HighFrequencyComponent.h"
 #include "include/HIDs.h"
-#include "include/IMU.h"
-#include "include/SwerveDrive.h"
 #include "include/SimulinkNetworkTables1.h"
-#include "include/SimulinkNetworkTables2.h"
-#include "include/Limelight.h"
-#include "include/FMSInfo.h"
 
 //frc
 #include <frc/TimedRobot.h>
@@ -41,7 +34,6 @@ class Robot : public frc::TimedRobot {
 
 private:
   /** Transfer data from Odometry outputs to Robot_Control inputs */
-  void Odometry_to_Robot_Control_Transfer();
 
   /** Puts all inputs from sensors and HIDs into Simulink */
   void PreStep() {for(auto component : dlib::Component::allCreatedComponents) component->PreStepCallback();}
@@ -49,9 +41,6 @@ private:
   /** Takes outputs from simulink and pushes their commands to hardware */
   void PostStep() {for(auto component : dlib::Component::allCreatedComponents) component->PostStepCallback();}
   
-  void HighFrequencyPreStep() {for(auto component : dlib::HighFrequencyComponent::allCreatedHighFrequencyComponents) component->HighFrequencyPreStepCallback();};
-
-  void HighFrequencyPostStep() {for(auto component : dlib::HighFrequencyComponent::allCreatedHighFrequencyComponents) component->HighFrequencyPreStepCallback();};
 
 
   /*
@@ -67,20 +56,9 @@ private:
   /** Component Object for Human Input Devices */
   HIDs m_HIDs;
   
-  /** Component Object for the IMU pigeon2 */
-  IMU m_IMU;
-  
-  /** Component Object for Limelight Vision */
-  Limelight m_Limelight;
-
-  /** Component Object for all Swerve Drive objects such as sensors and motors*/
-  SwerveDrive m_SwerveDrive;
     
   /** Component for all Tunable Parameters created by simulink */
   SimulinkNetworkTables1 m_SimulinkNetworkTables1;
-  SimulinkNetworkTables2 m_SimulinkNetworkTables2;
 
-  /** FMSInfo */
-  FMSInfo m_FMSInfo;
-  
+
 };
