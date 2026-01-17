@@ -13,21 +13,16 @@ namespace Constants
 {
     namespace BallShooter
     {
-            static SparkMaxMotorCreateInfo defaultDriveCreateInfo = SparkMaxMotorCreateInfo::getDefaultCreateInfo()
-                .SetCanID(1)
-                .SetIsReversed(true)
+            static SparkMaxMotorCreateInfo defaultBallCreateInfo = SparkMaxMotorCreateInfo::getDefaultCreateInfo()
+                .SetIsReversed(false)
                 .SetSmartCurrentLimit(80)
                 .SetSecondaryCurrentLimit(80);
 
-
-            static const SparkMaxMotorCreateInfo ballMotor = defaultDriveCreateInfo
+            static const SparkMaxMotorCreateInfo ballMotor = defaultBallCreateInfo
                 .SetCanID(1)
                 .SetDutyCycleCallback(&Robot_Control_Y.ballMotor_Duty_Cycle)
-                .SetVelocityCallback(&Robot_Control_U.ballMotor_Speed);
-            
-        
-        
-    
+                .SetVelocityCallback(&Robot_Control_U.ballMotor_Speed)
+                .SetDisplayName("Ball Shooter Motor");
     };
     
     namespace HID

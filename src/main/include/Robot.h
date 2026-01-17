@@ -5,6 +5,7 @@
 #include "DertLib/include/Component.h"
 #include "include/HIDs.h"
 #include "include/SimulinkNetworkTables1.h"
+#include "include/BallShooter.h"
 
 //frc
 #include <frc/TimedRobot.h>
@@ -55,8 +56,10 @@ private:
 
   /** Component Object for Human Input Devices */
   HIDs m_HIDs;
-  
-    
+
+  // Ball shooter object
+  BallShooter m_ballShooter; 
+      
   /** Component for all Tunable Parameters created by simulink */
   SimulinkNetworkTables1 m_SimulinkNetworkTables1;
 
