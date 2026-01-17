@@ -17,7 +17,10 @@ public:
     void PostStepCallback() override;
 private:
         // Parameters
-        nt::NetworkTableEntry P__ballMotor_Set_Duty_Cycle__Entry;
+        nt::NetworkTableEntry P__Ballmotor_speed_Kff__Entry;
+        nt::NetworkTableEntry P__Ballmotor_speed_Ki__Entry;
+        nt::NetworkTableEntry P__Ballmotor_speed_Kp__Entry;
+        nt::NetworkTableEntry P__ballMotor_Set_Desiredspeed__Entry;
  
         // Inports
         nt::NetworkTableEntry I__Gamepad_B3_X__Entry;

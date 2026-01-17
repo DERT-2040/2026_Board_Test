@@ -11,9 +11,21 @@ SimulinkNetworkTables1::SimulinkNetworkTables1()
     auto NTtable_Outport = NTinst.GetTable("Simulink Top Level Ports");
     auto NTtable_TPoint = NTinst.GetTable("Simulink Test Points");
  
-    P__ballMotor_Set_Duty_Cycle__Entry = NTtable_Tune->GetEntry("ballMotor_Set_Duty_Cycle");
-    NTinst.AddListener(P__ballMotor_Set_Duty_Cycle__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {ballMotor_Set_Duty_Cycle = event.GetValueEventData()->value.GetDouble();});
-    P__ballMotor_Set_Duty_Cycle__Entry.SetDouble(0);
+    P__Ballmotor_speed_Kff__Entry = NTtable_Tune->GetEntry("Ballmotor_speed_Kff");
+    NTinst.AddListener(P__Ballmotor_speed_Kff__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Ballmotor_speed_Kff = event.GetValueEventData()->value.GetDouble();});
+    P__Ballmotor_speed_Kff__Entry.SetDouble(0.00018519);
+ 
+    P__Ballmotor_speed_Ki__Entry = NTtable_Tune->GetEntry("Ballmotor_speed_Ki");
+    NTinst.AddListener(P__Ballmotor_speed_Ki__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Ballmotor_speed_Ki = event.GetValueEventData()->value.GetDouble();});
+    P__Ballmotor_speed_Ki__Entry.SetDouble(8e-07);
+ 
+    P__Ballmotor_speed_Kp__Entry = NTtable_Tune->GetEntry("Ballmotor_speed_Kp");
+    NTinst.AddListener(P__Ballmotor_speed_Kp__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Ballmotor_speed_Kp = event.GetValueEventData()->value.GetDouble();});
+    P__Ballmotor_speed_Kp__Entry.SetDouble(4e-05);
+ 
+    P__ballMotor_Set_Desiredspeed__Entry = NTtable_Tune->GetEntry("ballMotor_Set_Desiredspeed");
+    NTinst.AddListener(P__ballMotor_Set_Desiredspeed__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {ballMotor_Set_Desiredspeed = event.GetValueEventData()->value.GetDouble();});
+    P__ballMotor_Set_Desiredspeed__Entry.SetDouble(2500);
  
 // Inports
     I__Gamepad_B3_X__Entry = NTtable_Inport->GetEntry("Gamepad_B3_X");
@@ -30,7 +42,10 @@ void SimulinkNetworkTables1::PreStepCallback() {}
 void SimulinkNetworkTables1::PostStepCallback()
 {
     // Tunable Parameters
-    P__ballMotor_Set_Duty_Cycle__Entry.SetDouble(ballMotor_Set_Duty_Cycle);
+    P__Ballmotor_speed_Kff__Entry.SetDouble(Ballmotor_speed_Kff);
+    P__Ballmotor_speed_Ki__Entry.SetDouble(Ballmotor_speed_Ki);
+    P__Ballmotor_speed_Kp__Entry.SetDouble(Ballmotor_speed_Kp);
+    P__ballMotor_Set_Desiredspeed__Entry.SetDouble(ballMotor_Set_Desiredspeed);
     // Inports
     I__Gamepad_B3_X__Entry.SetDouble(Robot_Control_U.Gamepad_B3_X);
     I__ballMotor_Speed__Entry.SetDouble(Robot_Control_U.ballMotor_Speed);

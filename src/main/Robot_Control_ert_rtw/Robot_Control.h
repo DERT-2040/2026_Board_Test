@@ -9,7 +9,7 @@
  *
  * Model version                  : 2.434
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Jan 15 20:21:29 2026
+ * C/C++ source code generated on : Sat Jan 17 14:39:03 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -35,6 +35,11 @@
 #define rtmSetErrorStatus(rtm, val)    ((rtm)->errorStatus = (val))
 #endif
 
+/* Block states (default storage) for system '<Root>' */
+typedef struct {
+  real_T UnitDelay_DSTATE;             /* '<S3>/Unit Delay' */
+} DW_Robot_Control_T;
+
 /* External inputs (root inport signals with default storage) */
 typedef struct {
   real_T ballMotor_Speed;              /* '<Root>/ballMotor_Speed' */
@@ -51,6 +56,9 @@ struct tag_RTM_Robot_Control_T {
   const char_T * volatile errorStatus;
 };
 
+/* Block states (default storage) */
+extern DW_Robot_Control_T Robot_Control_DW;
+
 /* External inputs (root inport signals with default storage) */
 extern ExtU_Robot_Control_T Robot_Control_U;
 
@@ -65,9 +73,18 @@ extern ExtY_Robot_Control_T Robot_Control_Y;
  * these parameters and exports their symbols.
  *
  */
-extern real_T ballMotor_Set_Duty_Cycle;/* Variable: ballMotor_Set_Duty_Cycle
-                                        * Referenced by: '<S1>/Constant1'
+extern real_T Ballmotor_speed_Kff;     /* Variable: Ballmotor_speed_Kff
+                                        * Referenced by: '<S3>/Gain'
                                         */
+extern real_T Ballmotor_speed_Ki;      /* Variable: Ballmotor_speed_Ki
+                                        * Referenced by: '<S3>/Gain2'
+                                        */
+extern real_T Ballmotor_speed_Kp;      /* Variable: Ballmotor_speed_Kp
+                                        * Referenced by: '<S3>/Gain1'
+                                        */
+extern real_T ballMotor_Set_Desiredspeed;/* Variable: ballMotor_Set_Desiredspeed
+                                          * Referenced by: '<S1>/Constant1'
+                                          */
 
 /* Model entry point functions */
 extern void Robot_Control_initialize(void);
@@ -80,7 +97,9 @@ extern RT_MODEL_Robot_Control_T *const Robot_Control_M;
 /*-
  * These blocks were eliminated from the model due to optimizations:
  *
- * Block '<S1>/Signal Copy' : Unused code path elimination
+ * Block '<S4>/Data Type Duplicate' : Unused code path elimination
+ * Block '<S4>/Data Type Propagation' : Unused code path elimination
+ * Block '<S3>/Scope' : Unused code path elimination
  */
 
 /*-
@@ -99,6 +118,9 @@ extern RT_MODEL_Robot_Control_T *const Robot_Control_M;
  *
  * '<Root>' : 'Robot_Control'
  * '<S1>'   : 'Robot_Control/Control_System'
+ * '<S2>'   : 'Robot_Control/Control_System/Compare To Zero'
+ * '<S3>'   : 'Robot_Control/Control_System/Feed Forward plus PI and Integral Enable'
+ * '<S4>'   : 'Robot_Control/Control_System/Feed Forward plus PI and Integral Enable/Saturation Dynamic'
  */
 #endif                                 /* RTW_HEADER_Robot_Control_h_ */
 

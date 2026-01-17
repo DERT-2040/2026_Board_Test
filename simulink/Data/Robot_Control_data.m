@@ -7,4 +7,8 @@ Not_Tunable_List = {'t_sample'...
 t_sample = 0.020;
 
 % Duty Cycle for Testing
-ballMotor_Set_Duty_Cycle = 0;
+ballMotor_Set_Desiredspeed = 2500;
+
+Ballmotor_speed_Kff = 1.0/5400;
+Ballmotor_speed_Kp = 0.02/500;
+Ballmotor_speed_Ki = 0.02/500*t_sample

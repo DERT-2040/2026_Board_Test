@@ -9,7 +9,7 @@
  *
  * Model version                  : 2.434
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Thu Jan 15 20:21:29 2026
+ * C/C++ source code generated on : Sat Jan 17 14:39:03 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -21,9 +21,21 @@
 #include "rtwtypes.h"
 
 /* Exported block parameters */
-real_T ballMotor_Set_Duty_Cycle = 0.0; /* Variable: ballMotor_Set_Duty_Cycle
-                                        * Referenced by: '<S1>/Constant1'
+real_T Ballmotor_speed_Kff = 0.00018519;/* Variable: Ballmotor_speed_Kff
+                                         * Referenced by: '<S3>/Gain'
+                                         */
+real_T Ballmotor_speed_Ki = 8.0E-7;    /* Variable: Ballmotor_speed_Ki
+                                        * Referenced by: '<S3>/Gain2'
                                         */
+real_T Ballmotor_speed_Kp = 4.0E-5;    /* Variable: Ballmotor_speed_Kp
+                                        * Referenced by: '<S3>/Gain1'
+                                        */
+real_T ballMotor_Set_Desiredspeed = 2500.0;/* Variable: ballMotor_Set_Desiredspeed
+                                            * Referenced by: '<S1>/Constant1'
+                                            */
+
+/* Block states (default storage) */
+DW_Robot_Control_T Robot_Control_DW;
 
 /* External inputs (root inport signals with default storage) */
 ExtU_Robot_Control_T Robot_Control_U;
@@ -38,22 +50,110 @@ RT_MODEL_Robot_Control_T *const Robot_Control_M = &Robot_Control_M_;
 /* Model step function */
 void Robot_Control_step(void)
 {
-  /* Switch: '<S1>/Switch' incorporates:
-   *  Inport: '<Root>/Gamepad_B3_X'
+  real_T rtb_Add;
+  real_T rtb_Error;
+  real_T rtb_Switch2;
+
+  /* Sum: '<S3>/Sum' incorporates:
+   *  Constant: '<S1>/Constant1'
+   *  Inport: '<Root>/ballMotor_Speed'
    */
-  if (Robot_Control_U.Gamepad_B3_X > 0.0) {
-    /* Outport: '<Root>/ballMotor_Duty_Cycle' incorporates:
-     *  Constant: '<S1>/Constant1'
+  rtb_Error = ballMotor_Set_Desiredspeed - Robot_Control_U.ballMotor_Speed;
+
+  /* Sum: '<S3>/Add' incorporates:
+   *  Constant: '<S1>/Constant1'
+   *  Gain: '<S3>/Gain'
+   *  Gain: '<S3>/Gain1'
+   */
+  rtb_Add = (Ballmotor_speed_Kff * ballMotor_Set_Desiredspeed) +
+    (Ballmotor_speed_Kp * rtb_Error);
+
+  /* Switch: '<S3>/Switch' incorporates:
+   *  Constant: '<S2>/Constant'
+   *  Constant: '<S3>/Constant2'
+   *  Inport: '<Root>/Gamepad_B3_X'
+   *  RelationalOperator: '<S2>/Compare'
+   *  Switch: '<S1>/Switch'
+   */
+  if (Robot_Control_U.Gamepad_B3_X != 0.0) {
+    /* Sum: '<S3>/Sum2' incorporates:
+     *  Gain: '<S3>/Gain2'
+     *  UnitDelay: '<S3>/Unit Delay'
      */
-    Robot_Control_Y.ballMotor_Duty_Cycle = ballMotor_Set_Duty_Cycle;
+    rtb_Error = (Ballmotor_speed_Ki * rtb_Error) +
+      Robot_Control_DW.UnitDelay_DSTATE;
+
+    /* Sum: '<S3>/Subtract' incorporates:
+     *  Constant: '<S3>/Constant'
+     */
+    rtb_Switch2 = 1.0 - rtb_Add;
+
+    /* Switch: '<S4>/Switch2' incorporates:
+     *  Constant: '<S3>/Constant'
+     *  RelationalOperator: '<S4>/LowerRelop1'
+     *  Sum: '<S3>/Subtract'
+     */
+    if (!(rtb_Error > (1.0 - rtb_Add))) {
+      /* Sum: '<S3>/Subtract1' incorporates:
+       *  Constant: '<S3>/Constant1'
+       */
+      rtb_Switch2 = 0.0 - rtb_Add;
+
+      /* Switch: '<S4>/Switch' incorporates:
+       *  Constant: '<S3>/Constant1'
+       *  RelationalOperator: '<S4>/UpperRelop'
+       *  Sum: '<S3>/Subtract1'
+       */
+      if (!(rtb_Error < (0.0 - rtb_Add))) {
+        rtb_Switch2 = rtb_Error;
+      }
+
+      /* End of Switch: '<S4>/Switch' */
+    }
+
+    /* End of Switch: '<S4>/Switch2' */
+
+    /* Saturate: '<S3>/Saturation1' */
+    if (rtb_Switch2 > 0.1) {
+      rtb_Error = 0.1;
+    } else if (rtb_Switch2 < -0.1) {
+      rtb_Error = -0.1;
+    } else {
+      rtb_Error = rtb_Switch2;
+    }
+
+    /* End of Saturate: '<S3>/Saturation1' */
+
+    /* Sum: '<S3>/Add1' */
+    rtb_Add += rtb_Error;
+
+    /* Saturate: '<S3>/Saturation2' */
+    if (rtb_Add > 1.0) {
+      /* Outport: '<Root>/ballMotor_Duty_Cycle' */
+      Robot_Control_Y.ballMotor_Duty_Cycle = 1.0;
+    } else if (rtb_Add < 0.0) {
+      /* Outport: '<Root>/ballMotor_Duty_Cycle' */
+      Robot_Control_Y.ballMotor_Duty_Cycle = 0.0;
+    } else {
+      /* Outport: '<Root>/ballMotor_Duty_Cycle' */
+      Robot_Control_Y.ballMotor_Duty_Cycle = rtb_Add;
+    }
+
+    /* End of Saturate: '<S3>/Saturation2' */
   } else {
+    rtb_Error = 0.0;
+
     /* Outport: '<Root>/ballMotor_Duty_Cycle' incorporates:
      *  Constant: '<S1>/Constant'
+     *  Constant: '<S3>/Constant2'
      */
     Robot_Control_Y.ballMotor_Duty_Cycle = 0.0;
   }
 
-  /* End of Switch: '<S1>/Switch' */
+  /* End of Switch: '<S3>/Switch' */
+
+  /* Update for UnitDelay: '<S3>/Unit Delay' */
+  Robot_Control_DW.UnitDelay_DSTATE = rtb_Error;
 }
 
 /* Model initialize function */
