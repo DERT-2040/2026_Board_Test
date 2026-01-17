@@ -6,6 +6,8 @@
 #include "include/HIDs.h"
 #include "include/SimulinkNetworkTables1.h"
 #include "include/BallShooter.h"
+#include "DertLib/include/SparkMaxMotorGroup.h"
+#include "DertLib/include/TalonFXMotorGroup.h"
 
 //frc
 #include <frc/TimedRobot.h>
