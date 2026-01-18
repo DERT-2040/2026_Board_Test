@@ -1,7 +1,6 @@
 #pragma once
 //std
-#include <string>
-
+//#include <string>
 
 //local
 #include "DertLib/include/SparkMaxMotor.h"
@@ -15,15 +14,13 @@ namespace Constants
 {
     namespace CANBuses
     {
-        static dlib::CANBus CANivoreBus("Uno");
-        static dlib::CANBus RoboRioBus("Rio");
+        static dlib::CANBus CANivoreBus("uno");
+        static dlib::CANBus RoboRioBus("rio");
     };
 
     namespace BallShooter
     {
-            static SparkMaxMotorCreateInfo defaultBallCreateInfo = SparkMaxMotorCreateInfo::getDefaultCreateInfo();
-
-            static const SparkMaxMotorCreateInfo ballMotor = defaultBallCreateInfo
+            static const SparkMaxMotorCreateInfo ballMotor = SparkMaxMotorCreateInfo::getDefaultCreateInfo()
                 .SetCanID(1)
                 .SetIsReversed(false)
                 .SetSmartCurrentLimit(80)
@@ -39,7 +36,6 @@ namespace Constants
             //     .SetOpenLoopRampPeriod(0)
             //     .SetEnableFOC(true)
             //     .SetDisplayName("TestMotor");
-
     };
     
     namespace HID
