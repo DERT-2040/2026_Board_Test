@@ -2,7 +2,7 @@
 ## Makefile generated for component 'Robot_Control'. 
 ## 
 ## Makefile     : Robot_Control.mk
-## Generated on : Thu Jan 15 20:19:51 2026
+## Generated on : Sun Jan 18 08:28:13 2026
 ## Final product: $(RELATIVE_PATH_TO_ANCHOR)/Robot_Control.exe
 ## Product type : executable
 ## 
@@ -23,7 +23,7 @@ MAKEFILE                  = Robot_Control.mk
 MATLAB_ROOT               = C:/PROGRA~1/MATLAB/R2023b
 MATLAB_BIN                = C:/PROGRA~1/MATLAB/R2023b/bin
 MATLAB_ARCH_BIN           = $(MATLAB_BIN)/win64
-START_DIR                 = C:/GitHub/2026_Board_Test/src/main
+START_DIR                 = C:/GitHub/2026_Board_Test-Imported/src/main
 SOLVER                    = 
 SOLVER_OBJ                = 
 CLASSIC_INTERFACE         = 0
