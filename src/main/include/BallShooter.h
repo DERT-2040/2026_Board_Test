@@ -4,6 +4,7 @@
 #include "DertLib/include/Component.h"
 #include "Robot_Control_ert_rtw/Robot_Control.h"
 #include "DertLib/include/SparkMaxMotorGroup.h"
+#include "DertLib/include/TalonFXMotorGroup.h"
 #include "include/Constants.h"
 
 class BallShooter : public Component
@@ -18,4 +19,10 @@ private:
 			Constants::BallShooter::ballMotor
 		}
 	};
+	// dlib::TalonFXMotorGroup testMotorGroup
+	// {
+	// 	{
+	// 		Constants::BallShooter::testMotor
+	// 	}
+	// };
 };
