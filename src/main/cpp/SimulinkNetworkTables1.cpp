@@ -23,6 +23,10 @@ SimulinkNetworkTables1::SimulinkNetworkTables1()
     NTinst.AddListener(P__Ballmotor_speed_Kp__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {Ballmotor_speed_Kp = event.GetValueEventData()->value.GetDouble();});
     P__Ballmotor_speed_Kp__Entry.SetDouble(4e-05);
  
+    P__HoodServo_Position__Entry = NTtable_Tune->GetEntry("HoodServo_Position");
+    NTinst.AddListener(P__HoodServo_Position__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {HoodServo_Position = event.GetValueEventData()->value.GetDouble();});
+    P__HoodServo_Position__Entry.SetDouble(0.5);
+ 
     P__ballMotor_Set_Desiredspeed__Entry = NTtable_Tune->GetEntry("ballMotor_Set_Desiredspeed");
     NTinst.AddListener(P__ballMotor_Set_Desiredspeed__Entry, nt::EventFlags::kValueAll, [] (const nt::Event& event) {ballMotor_Set_Desiredspeed = event.GetValueEventData()->value.GetDouble();});
     P__ballMotor_Set_Desiredspeed__Entry.SetDouble(2500);
@@ -32,6 +36,8 @@ SimulinkNetworkTables1::SimulinkNetworkTables1()
     I__ballMotor_Speed__Entry = NTtable_Inport->GetEntry("ballMotor_Speed");
  
 // Outports
+    O__HoodServo_Left_Position__Entry = NTtable_Outport->GetEntry("HoodServo_Left_Position");
+    O__HoodServo_Right_Position__Entry = NTtable_Outport->GetEntry("HoodServo_Right_Position");
     O__ballMotor_Duty_Cycle__Entry = NTtable_Outport->GetEntry("ballMotor_Duty_Cycle");
  
 // Test Points
@@ -45,11 +51,14 @@ void SimulinkNetworkTables1::PostStepCallback()
     P__Ballmotor_speed_Kff__Entry.SetDouble(Ballmotor_speed_Kff);
     P__Ballmotor_speed_Ki__Entry.SetDouble(Ballmotor_speed_Ki);
     P__Ballmotor_speed_Kp__Entry.SetDouble(Ballmotor_speed_Kp);
+    P__HoodServo_Position__Entry.SetDouble(HoodServo_Position);
     P__ballMotor_Set_Desiredspeed__Entry.SetDouble(ballMotor_Set_Desiredspeed);
     // Inports
     I__Gamepad_B3_X__Entry.SetDouble(Robot_Control_U.Gamepad_B3_X);
     I__ballMotor_Speed__Entry.SetDouble(Robot_Control_U.ballMotor_Speed);
     // Outports
+    O__HoodServo_Left_Position__Entry.SetDouble(Robot_Control_Y.HoodServo_Left_Position);
+    O__HoodServo_Right_Position__Entry.SetDouble(Robot_Control_Y.HoodServo_Right_Position);
     O__ballMotor_Duty_Cycle__Entry.SetDouble(Robot_Control_Y.ballMotor_Duty_Cycle);
     // Test Points
 }

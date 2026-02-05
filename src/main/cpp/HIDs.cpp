@@ -3,7 +3,7 @@
 
 void HIDs::PreStepCallback() {
     // Steer and Drive Joysticks
-  /*  Robot_Control_U.Joystick_Left_X = -m_Left_Joystick.GetY();
+/*  Robot_Control_U.Joystick_Left_X = -m_Left_Joystick.GetY();
     Robot_Control_U.Joystick_Left_Y = -m_Left_Joystick.GetX();
     Robot_Control_U.Joystick_Left_Z = m_Left_Joystick.GetZ();
 
@@ -50,6 +50,7 @@ void HIDs::PreStepCallback() {
 
     // Gamepad
     Robot_Control_U.Gamepad_Stick_Left_X = m_Gamepad.GetRawAxis(0);
+    
     Robot_Control_U.Gamepad_Stick_Left_Y = -m_Gamepad.GetRawAxis(1);
        
     Robot_Control_U.Gamepad_Stick_Right_X = m_Gamepad.GetRawAxis(4);
@@ -57,7 +58,7 @@ void HIDs::PreStepCallback() {
 
     Robot_Control_U.Gamepad_B1_A = m_Gamepad.GetRawButton(1);
     Robot_Control_U.Gamepad_B2_B = m_Gamepad.GetRawButton(2);
-    */
+*/
     Robot_Control_U.Gamepad_B3_X = m_Gamepad.GetRawButton(3);
 /*
     Robot_Control_U.Gamepad_B4_Y = m_Gamepad.GetRawButton(4);    
@@ -70,7 +71,7 @@ void HIDs::PreStepCallback() {
 
     Robot_Control_U.Gamepad_LT = m_Gamepad.GetRawAxis(2);
     Robot_Control_U.Gamepad_RT = m_Gamepad.GetRawAxis(3);
-    */
+*/
 
 }
 

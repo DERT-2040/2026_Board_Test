@@ -20,12 +20,15 @@ private:
         nt::NetworkTableEntry P__Ballmotor_speed_Kff__Entry;
         nt::NetworkTableEntry P__Ballmotor_speed_Ki__Entry;
         nt::NetworkTableEntry P__Ballmotor_speed_Kp__Entry;
+        nt::NetworkTableEntry P__HoodServo_Position__Entry;
         nt::NetworkTableEntry P__ballMotor_Set_Desiredspeed__Entry;
  
         // Inports
         nt::NetworkTableEntry I__Gamepad_B3_X__Entry;
         nt::NetworkTableEntry I__ballMotor_Speed__Entry;
         // Outports
+        nt::NetworkTableEntry O__HoodServo_Left_Position__Entry;
+        nt::NetworkTableEntry O__HoodServo_Right_Position__Entry;
         nt::NetworkTableEntry O__ballMotor_Duty_Cycle__Entry;
  
         // Test Points

@@ -20,6 +20,7 @@ class Robot : public frc::TimedRobot {
  public:
   /** Runs once when robot turns on */
   void RobotInit()      override;
+
   /** The following code runs once when its mode is enabledd */
   void AutonomousInit() override;
   void TeleopInit()     override;

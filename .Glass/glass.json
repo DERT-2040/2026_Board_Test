@@ -4,35 +4,16 @@
       "Simulink Top Level Ports": {
         "open": true
       },
-      "Simulink Tunable Params": {
-        "open": true
-      },
       "limelight": {
-        "open": true
+        "open": false
       }
     },
     "types": {
       "/FMSInfo": "FMSInfo",
-      "/SmartDashboard/ALARM PANIC": "Alerts",
-      "/SmartDashboard/Auto Modes": "String Chooser",
       "/SmartDashboard/CAN Connection Alerts": "Alerts"
     }
   },
-  "NetworkTables Info": {
-    "Clients": {
-      "open": true
-    },
-    "Connections": {
-      "open": true
-    },
-    "Server": {
-      "open": true
-    },
-    "visible": true
-  },
   "NetworkTables Settings": {
-    "mode": "Client (NT4)",
-    "serverTeam": "2040",
-    "visible": false
+    "serverTeam": "2040"
   }
 }

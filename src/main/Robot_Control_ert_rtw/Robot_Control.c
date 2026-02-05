@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Robot_Control'.
  *
- * Model version                  : 2.434
+ * Model version                  : 2.435
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sun Jan 18 08:28:02 2026
+ * C/C++ source code generated on : Wed Feb  4 20:15:40 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -29,6 +29,9 @@ real_T Ballmotor_speed_Ki = 8.0E-7;    /* Variable: Ballmotor_speed_Ki
                                         */
 real_T Ballmotor_speed_Kp = 4.0E-5;    /* Variable: Ballmotor_speed_Kp
                                         * Referenced by: '<S3>/Gain1'
+                                        */
+real_T HoodServo_Position = 0.5;       /* Variable: HoodServo_Position
+                                        * Referenced by: '<S1>/Constant2'
                                         */
 real_T ballMotor_Set_Desiredspeed = 2500.0;/* Variable: ballMotor_Set_Desiredspeed
                                             * Referenced by: '<S1>/Constant1'
@@ -151,6 +154,16 @@ void Robot_Control_step(void)
   }
 
   /* End of Switch: '<S3>/Switch' */
+
+  /* Outport: '<Root>/HoodServo_Left_Position' incorporates:
+   *  Constant: '<S1>/Constant2'
+   */
+  Robot_Control_Y.HoodServo_Left_Position = HoodServo_Position;
+
+  /* Outport: '<Root>/HoodServo_Right_Position' incorporates:
+   *  Constant: '<S1>/Constant2'
+   */
+  Robot_Control_Y.HoodServo_Right_Position = HoodServo_Position;
 
   /* Update for UnitDelay: '<S3>/Unit Delay' */
   Robot_Control_DW.UnitDelay_DSTATE = rtb_Error;

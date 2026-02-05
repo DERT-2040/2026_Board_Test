@@ -22,7 +22,7 @@ namespace Constants
     {
             static const SparkMaxMotorCreateInfo ballMotor = SparkMaxMotorCreateInfo::getDefaultCreateInfo()
                 .SetCanID(1)
-                .SetIsReversed(false)
+                .SetIsReversed(true)
                 .SetSmartCurrentLimit(80)
                 .SetSecondaryCurrentLimit(80)
                 .SetDutyCycleCallback(&Robot_Control_Y.ballMotor_Duty_Cycle)
@@ -44,6 +44,12 @@ namespace Constants
         static constexpr int k_Left_Joystick_Port = 1;
         static constexpr int k_Right_Joystick_Port = 2;
     };
+
+    namespace HoodServo
+    {
+        static constexpr int Hood_Servo_PWM_Left_ID = 0;
+        static constexpr int Hood_Servo_PWM_Right_ID = 1;
+    }
 
 
 };

@@ -7,9 +7,9 @@
  *
  * Code generated for Simulink model 'Robot_Control'.
  *
- * Model version                  : 2.434
+ * Model version                  : 2.435
  * Simulink Coder version         : 23.2 (R2023b) 01-Aug-2023
- * C/C++ source code generated on : Sun Jan 18 08:28:02 2026
+ * C/C++ source code generated on : Wed Feb  4 20:15:40 2026
  *
  * Target selection: ert.tlc
  * Embedded hardware selection: ARM Compatible->ARM 7
@@ -49,6 +49,8 @@ typedef struct {
 /* External outputs (root outports fed by signals with default storage) */
 typedef struct {
   real_T ballMotor_Duty_Cycle;         /* '<Root>/ballMotor_Duty_Cycle' */
+  real_T HoodServo_Left_Position;      /* '<Root>/HoodServo_Left_Position' */
+  real_T HoodServo_Right_Position;     /* '<Root>/HoodServo_Right_Position' */
 } ExtY_Robot_Control_T;
 
 /* Real-time Model Data Structure */
@@ -81,6 +83,9 @@ extern real_T Ballmotor_speed_Ki;      /* Variable: Ballmotor_speed_Ki
                                         */
 extern real_T Ballmotor_speed_Kp;      /* Variable: Ballmotor_speed_Kp
                                         * Referenced by: '<S3>/Gain1'
+                                        */
+extern real_T HoodServo_Position;      /* Variable: HoodServo_Position
+                                        * Referenced by: '<S1>/Constant2'
                                         */
 extern real_T ballMotor_Set_Desiredspeed;/* Variable: ballMotor_Set_Desiredspeed
                                           * Referenced by: '<S1>/Constant1'
